@@ -1,7 +1,7 @@
 // Service worker do Manual APS — cache simples para uso offline.
 // Ao publicar uma nova versão do index.html, altere CACHE_VERSION
 // para que os celulares/computadores baixem a versão atualizada.
-const CACHE_VERSION = 'manual-aps-v1';
+const CACHE_VERSION = 'manual-aps-v183-20261018';
 const ARQUIVOS = ['./', './index.html'];
 
 self.addEventListener('install', (event) => {
