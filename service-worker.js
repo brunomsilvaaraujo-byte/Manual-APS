@@ -1,5 +1,5 @@
-/* Manual APS — cache da versão sem calculadora. */
-const CACHE='manual-aps-vanilla-lote148-sem-calculadora-v4';
+/* Manual APS — Lote 42 — redesign visual com conteúdo e busca preservados. */
+const CACHE='manual-aps-lote42-redesign-visual-v1';
 const FILES=['./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.allSettled(FILES.map(path=>cache.add(path)));await self.skipWaiting()})())});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{const names=await caches.keys();await Promise.all(names.filter(n=>n.startsWith('manual-aps-')&&n!==CACHE).map(n=>caches.delete(n)));await self.clients.claim()})())});
