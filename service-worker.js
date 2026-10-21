@@ -1,38 +1,39 @@
-// Service worker do Manual APS — cache simples para uso offline.
-// Ao publicar uma nova versão do index.html, altere CACHE_VERSION
-// para que os celulares/computadores baixem a versão atualizada.
-const CACHE_VERSION = 'manual-aps-v185-20261018';
-const ARQUIVOS = ['./', './index.html'];
-
+/* Manual APS 3.0 — Lote 148. Offline cache of the published static app. */
+const CACHE_NAME = 'manual-aps-3-0-lote148-v1';
+const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_VERSION).then((cache) => cache.addAll(ARQUIVOS))
-  );
-  self.skipWaiting();
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.addAll(APP_FILES);
+    await self.skipWaiting();
+  })());
 });
-
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((chaves) =>
-      Promise.all(
-        chaves.filter((c) => c !== CACHE_VERSION).map((c) => caches.delete(c))
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(key => key.startsWith('manual-aps-') && key !== CACHE_NAME).map(key => caches.delete(key)));
+    await self.clients.claim();
+  })());
 });
-
-// Rede primeiro (traz sempre a versão mais nova quando há internet);
-// se estiver offline, usa a cópia guardada.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request)
-      .then((resposta) => {
-        const copia = resposta.clone();
-        caches.open(CACHE_VERSION).then((cache) => cache.put(event.request, copia));
-        return resposta;
-      })
-      .catch(() => caches.match(event.request).then((r) => r || caches.match('./index.html')))
-  );
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin || !url.pathname.startsWith(new URL('./', self.registration.scope).pathname)) return;
+  if (event.request.mode === 'navigate') {
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(event.request);
+        if (response.ok) {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put('./index.html', response.clone());
+        }
+        return response;
+      } catch (_) {
+        const cached = await caches.match('./index.html');
+        return cached || Response.error();
+      }
+    })());
+  } else {
+    event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
+  }
 });
