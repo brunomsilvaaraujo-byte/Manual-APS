@@ -1,12 +1,12 @@
 {
-  "name": "Manual APS 3.0 — Lote 148",
+  "name": "Manual APS 3.0 — Versão leve (Lote 148)",
   "short_name": "Manual APS",
-  "description": "Manual de apoio clínico à Atenção Primária, com prescrições e calculadora de doses pediátricas.",
+  "description": "Manual APS com banco clínico completo carregado diretamente, sem frameworks.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f7f8f7",
-  "theme_color": "#0d9488",
+  "background_color": "#f3f6f8",
+  "theme_color": "#122d3d",
   "lang": "pt-BR",
   "icons": [
     {

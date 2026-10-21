@@ -1,39 +1,9 @@
-/* Manual APS 3.0 — Lote 148. Offline cache of the published static app. */
-const CACHE_NAME = 'manual-aps-3-0-lote148-v1';
-const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
-self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    await cache.addAll(APP_FILES);
-    await self.skipWaiting();
-  })());
-});
-self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.filter(key => key.startsWith('manual-aps-') && key !== CACHE_NAME).map(key => caches.delete(key)));
-    await self.clients.claim();
-  })());
-});
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin || !url.pathname.startsWith(new URL('./', self.registration.scope).pathname)) return;
-  if (event.request.mode === 'navigate') {
-    event.respondWith((async () => {
-      try {
-        const response = await fetch(event.request);
-        if (response.ok) {
-          const cache = await caches.open(CACHE_NAME);
-          await cache.put('./index.html', response.clone());
-        }
-        return response;
-      } catch (_) {
-        const cached = await caches.match('./index.html');
-        return cached || Response.error();
-      }
-    })());
-  } else {
-    event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
-  }
+/* Manual APS — cache novo, independente da versão React quebrada. */
+const CACHE='manual-aps-vanilla-lote148-v3';
+const FILES=['./index.html','./legacy/calculadora.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
+self.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE);await Promise.allSettled(FILES.map(path=>cache.add(path)));await self.skipWaiting()})())});
+self.addEventListener('activate',event=>{event.waitUntil((async()=>{const names=await caches.keys();await Promise.all(names.filter(n=>n.startsWith('manual-aps-')&&n!==CACHE).map(n=>caches.delete(n)));await self.clients.claim()})())});
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const u=new URL(event.request.url);if(u.origin!==self.location.origin||!u.pathname.startsWith(new URL('./',self.registration.scope).pathname))return;
+  if(event.request.mode==='navigate'){event.respondWith((async()=>{try{const r=await fetch(event.request);if(r.ok){const c=await caches.open(CACHE);c.put(event.request,r.clone()).catch(()=>{})}return r}catch(e){return await caches.match(event.request)||await caches.match('./index.html')||Response.error()}})());return}
+  event.respondWith(caches.match(event.request).then(c=>c||fetch(event.request)));
 });

@@ -1,19 +1,22 @@
-# Manual APS 3.0 — Lote 148 | GitHub Pages
+# Manual APS 3.0 — Lote 148 · Versão leve
 
-Este ZIP é a versão **pronta para publicar no GitHub Pages**. O `index.html` fica na raiz.
+Esta versão **não usa React nem CDN**. A interface foi refeita em HTML, CSS e JavaScript. O banco clínico (2.962 cards) está **dentro do próprio `index.html`** para eliminar falhas de carregamento. A calculadora original do Lote 148 permanece intacta no arquivo `legacy/calculadora.html`, com uma camada visual de enquadramento.
 
-## Publicar
+## Publicar no GitHub Pages
 
-1. Extraia o ZIP no computador.
-2. No seu repositório do GitHub, envie os **arquivos e a pasta `icons` extraídos**, não o arquivo ZIP fechado. Mantenha `index.html` na raiz do repositório.
-3. Abra **Settings → Pages** e selecione **Deploy from a branch → main → /(root)**. Salve.
-4. Acesse a URL informada pelo GitHub Pages depois da publicação.
+1. Extraia o arquivo ZIP (não faça upload do ZIP fechado).
+2. Envie todo o conteúdo **extraído** para a raiz do repositório (incluindo `index.html`, `legacy/`, `icons/`, `service-worker.js`, `manifest.webmanifest` e `.nojekyll`).
+3. Acesse **Settings > Pages > Deploy from a branch**, escolha `main` e `/(root)`.
+4. **Apague arquivos antigos** da versão React antes de publicar, em especial as pastas `assets/` e `data/`. Estes arquivos não são necessários.
+5. Se a versão anterior permanecer aparecendo no celular, atualize a página e limpe dados/cache do site ou reinstale o PWA. O novo service worker substitui o cache antigo.
 
-## Conteúdo
+## Testes e integridade
 
-- `index.html` — aplicativo clínico Lote 148, sem dependências externas.
-- `service-worker.js` e `manifest.webmanifest` — instalação e cache offline no GitHub Pages (o primeiro acesso precisa de internet).
-- `icons/` — ícones do aplicativo.
-- `AUDITORIA-CALCULADORA-LOTE-148.md` — relatório e limitações da auditoria.
+- Adultos: 2.026 cards / 407 condições.
+- Gestantes: 382 cards / 71 condições.
+- Pediatria: 554 cards / 146 condições.
+- Calculadora: mantém o mecanismo original do Lote 148; nenhuma dose foi recalculada nesta mudança visual.
+- Busca, lista, filtros, favoritos, recentes e alternância de módulos funcionam sem dependência de rede depois de carregados.
+- Abrir `index.html` diretamente no navegador do computador também deve mostrar os 2.962 cards, mesmo sem servidor.
 
-As alterações desta embalagem são apenas de nome exibido na aba, metadados PWA e arquivos para publicação. Dados clínicos e fórmulas do Lote 148 foram preservados. Não houve revalidação clínica integral nesta etapa. Para editar/recompilar o projeto, use o ZIP separado do projeto dividido original.
+**Nota clínica:** atualização da interface, não equivale a nova auditoria farmacológica.
