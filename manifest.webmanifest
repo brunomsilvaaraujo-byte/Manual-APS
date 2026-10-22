@@ -1,0 +1,25 @@
+{
+  "name": "Manual APS 3.0 — Lote 91",
+  "short_name": "Manual APS 3.0",
+  "description": "Lote 91: hipertireoidismo, nódulos tireoidianos, hipotireoidismo subclínico, vitamina D e hipertrigliceridemia grave. 3.352 cards cumulativos.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#edf4f7",
+  "theme_color": "#113a59",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
