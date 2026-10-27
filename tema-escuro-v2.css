@@ -1,0 +1,128 @@
+/*
+  Manual APS 3.0 | Ajuste de contraste no tema escuro | v2 (27/10/2026)
+  Exclusivamente visual. Não altera conteúdo clínico, consultas à API ou calculadoras.
+  Carregar como a ULTIMA folha de estilos do <head>.
+*/
+
+/* 1. SUPERFÍCIES: evitar branco dentro de condutas integradas.
+   O CSS principal usa --panel com fallback #fff mesmo no modo escuro. */
+html[data-theme="dark"] .adult-integrated-card .peds-therapy-step:first-child,
+html[data-theme="dark"] .adult-integrated-card .peds-therapy-step,
+html[data-theme="dark"] .peds-therapy-card .peds-therapy-step {
+  background: #1a3443 !important;
+  color: #f0f7fa !important;
+  border-color: #456578 !important;
+}
+html[data-theme="dark"] .adult-integrated-card .peds-therapy-step > summary,
+html[data-theme="dark"] .peds-therapy-card .peds-therapy-step > summary {
+  background: #1a3443 !important;
+  color: #f0f7fa !important;
+}
+html[data-theme="dark"] .adult-integrated-card .peds-therapy-step[open] > summary,
+html[data-theme="dark"] .peds-therapy-card .peds-therapy-step[open] > summary {
+  background: #25495a !important;
+}
+html[data-theme="dark"] .peds-step-body {
+  background: #1a3443;
+  border-top-color: #456578 !important;
+}
+
+/* 2. TEXTOS: subtítulos e headings claros sobre fundos escuros. */
+html[data-theme="dark"] .peds-step-head strong,
+html[data-theme="dark"] .adult-step-headline,
+html[data-theme="dark"] .peds-therapy-step > summary strong,
+html[data-theme="dark"] .card-title,
+html[data-theme="dark"] .aps-foldable-summary .card-title {
+  color: #f4fbfd !important;
+}
+html[data-theme="dark"] .peds-step-head small,
+html[data-theme="dark"] .peds-step-chevron,
+html[data-theme="dark"] .aps-fold-chevron,
+html[data-theme="dark"] .peds-items-count,
+html[data-theme="dark"] .adult-note,
+html[data-theme="dark"] .peds-therapy-explainer,
+html[data-theme="dark"] .detail-meta {
+  color: #c4d9e3 !important;
+}
+html[data-theme="dark"] .card-text,
+html[data-theme="dark"] .card-text p,
+html[data-theme="dark"] .card-text li,
+html[data-theme="dark"] .card-text b,
+html[data-theme="dark"] .card-text strong,
+html[data-theme="dark"] .peds-step-body .card-text {
+  color: #e9f3f7;
+}
+html[data-theme="dark"] .card-text a {
+  color: #83e9dd !important;
+}
+html[data-theme="dark"] .adult-dose-note {
+  background: #1e4642;
+  color: #ecfaf5;
+  border-color: #477d70;
+}
+
+/* 3. MENU LATERAL: condição selecionada e filtros legíveis. */
+html[data-theme="dark"] .condition-item.selected {
+  background: #245064 !important;
+  border-color: #46798b !important;
+  color: #f2fcfe !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .condition-item.selected .item-name,
+html[data-theme="dark"] .condition-item.selected .search-match-preview {
+  color: #f2fcfe !important;
+}
+html[data-theme="dark"] .condition-item .count,
+html[data-theme="dark"] .list-meta,
+html[data-theme="dark"] .side-foot,
+html[data-theme="dark"] .search-match-preview {
+  color: #bfd3de;
+}
+html[data-theme="dark"] .condition-item .count em,
+html[data-theme="dark"] .condition-item.selected .count em {
+  background: #d7f1ef !important;
+  color: #103e47 !important;
+}
+html[data-theme="dark"] .scope button.active {
+  background: #256173 !important;
+  border-color: #4f8998 !important;
+  color: #f4fbfd !important;
+}
+html[data-theme="dark"] .scope button:not(.active) {
+  color: #d9e9f0 !important;
+}
+html[data-theme="dark"] .show-more {
+  background: #284c5e !important;
+  border-color: #4c7586 !important;
+  color: #f4fbfd !important;
+}
+html[data-theme="dark"] .searchbox input,
+html[data-theme="dark"] .searchbox input::placeholder {
+  color: #e4f1f6 !important;
+  opacity: 1;
+}
+html[data-theme="dark"] .searchbox input::placeholder {
+  color: #b9d0dc !important;
+}
+
+/* 4. INDICADORES E CONTROLES: preservar boa leitura nos três módulos. */
+html[data-theme="dark"] .card-type,
+html[data-theme="dark"] .summary-pill,
+html[data-theme="dark"] .micro-pill {
+  color: #e3f0f6 !important;
+}
+html[data-theme="dark"] .filterbtn,
+html[data-theme="dark"] .quick-chip,
+html[data-theme="dark"] .copy {
+  color: #e8f4f8;
+}
+html[data-theme="dark"] .filterbtn.active {
+  color: #fff !important;
+  background: #076f67 !important;
+}
+html[data-theme="dark"] .aps-foldable-card > summary:focus-visible,
+html[data-theme="dark"] .peds-therapy-step > summary:focus-visible,
+html[data-theme="dark"] button:focus-visible {
+  outline: 3px solid #8bf5e6 !important;
+  outline-offset: 2px;
+}
